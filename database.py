@@ -107,10 +107,12 @@ class MovieDB:
 					description TEXT,
 					id_kinopoisk INT PRIMARY KEY,
 					cover TEXT,
-					year INT,
+					premiere_date TEXT,
 					country TEXT,
 					genres TEXT,
-					popularity INT
+					popularity INT,
+					age INT,
+					producer TEXT
 					);
 					""")
 		self.conn.commit()
@@ -118,16 +120,18 @@ class MovieDB:
 	def post_movie(self, movie: Movie):
 		self.cur.execute("""
 					INSERT INTO movie
-   					VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+   					VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
    					""", [
    						movie.title,
    						movie.description,
    						movie.id_kinopoisk,
    						movie.cover,
-   						movie.year,
+   						movie.premiere_date,
    						movie.country,
    						movie.genres,
-   						movie.popularity
+   						movie.popularity,
+   						movie.age,
+   						movie.producer
    					])
 		self.conn.commit()
 
@@ -155,19 +159,23 @@ class MovieDB:
 					title = ?,
 					description = ?,
 					cover = ?,
-					year = ?,
+					premiere_date = ?,
 					country = ?,
 					genres = ?,
-					popularity = ?
+					popularity = ?,
+					age = ?,
+					producer = ?
 					WHERE id_kinopoisk = ?;
 					""", [
    						new_movie.title,
    						new_movie.description,
    						new_movie.cover,
-   						new_movie.year,
+   						new_movie.premiere_date,
    						new_movie.country,
    						new_movie.genres,
    						new_movie.popularity,
+   						new_movie.age,
+   						new_movie.producer,
    						id_prev
    					])
 		self.conn.commit()
@@ -194,7 +202,7 @@ class MovieDB:
 		self.cur.execute("""
 					SELECT * 
 					FROM movie
-					ORDER BY popularity DESC, year DESC;
+					ORDER BY popularity DESC;
 					""")
 		res = self.cur.fetchmany(count)
 		return res
@@ -203,7 +211,7 @@ class MovieDB:
 		self.cur.execute("""
 					SELECT * 
 					FROM movie
-					ORDER BY year DESC, popularity DESC;
+					ORDER BY date(premiere_date) DESC;
 					""")
 		res = self.cur.fetchmany(count)
 		return res

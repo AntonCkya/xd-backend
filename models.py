@@ -1,5 +1,6 @@
 from pydantic import BaseModel, HttpUrl, ValidationError, validator
 from typing import List
+from datetime import date
 from password import PasswordSafety
 
 class Movie (BaseModel):
@@ -7,10 +8,12 @@ class Movie (BaseModel):
 	description : str
 	id_kinopoisk : int
 	cover : HttpUrl
-	year : int
+	premiere_date : date
 	country : str
 	genres : str
 	popularity : int
+	age: int
+	producer: str
 
 class SimpleMovie (BaseModel):
 	title : str

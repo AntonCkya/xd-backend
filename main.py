@@ -24,10 +24,12 @@ async def get_movie(id: int):
 		'description': res[1],
 		'id_kinopoisk': res[2],
 		'cover': res[3],
-		'year': res[4],
+		'premiere_date': res[4],
 		'country': res[5],
 		'genres': res[6],
-		'popularity': res[7]
+		'popularity': res[7],
+		'age': res[8],
+		'producer': res[9]
 	}
 
 @app.delete('/delete_movie/')
@@ -41,16 +43,18 @@ async def get_movie_popular(count: int):
 	l = []
 	for res in many:
 		l.append(
-		{
+			{
 			'title': res[0],
 			'description': res[1],
 			'id_kinopoisk': res[2],
 			'cover': res[3],
-			'year': res[4],
+			'premiere_date': res[4],
 			'country': res[5],
 			'genres': res[6],
-			'popularity': res[7]
-		}
+			'popularity': res[7],
+			'age': res[8],
+			'producer': res[9]
+			}
 		)
 	return {"list": l}
 
@@ -60,16 +64,18 @@ async def get_movie_novelty(count: int):
 	l = []
 	for res in many:
 		l.append(
-		{
+			{
 			'title': res[0],
 			'description': res[1],
 			'id_kinopoisk': res[2],
 			'cover': res[3],
-			'year': res[4],
+			'premiere_date': res[4],
 			'country': res[5],
 			'genres': res[6],
-			'popularity': res[7]
-		}
+			'popularity': res[7],
+			'age': res[8],
+			'producer': res[9]
+			}
 		)
 	return {"list": l}
 
@@ -79,16 +85,18 @@ async def get_movie_many(count: int):
 	l = []
 	for res in many:
 		l.append(
-		{
+			{
 			'title': res[0],
 			'description': res[1],
 			'id_kinopoisk': res[2],
 			'cover': res[3],
-			'year': res[4],
+			'premiere_date': res[4],
 			'country': res[5],
 			'genres': res[6],
-			'popularity': res[7]
-		}
+			'popularity': res[7],
+			'age': res[8],
+			'producer': res[9]
+			}
 		)
 	return {"list": l}
 
@@ -103,7 +111,7 @@ def custom_openapi():
 		return app.openapi_schema
 	openapi_schema = get_openapi(
     	title="[ xd ]",
-		version="0.0.1",
+		version="0.0.2",
 		description="Первая версия api к онлайн-кинотеатру [ xd ]",
 		routes=app.routes,
 	)
