@@ -7,13 +7,14 @@ class Movie (BaseModel):
 	title : str
 	description : str
 	id_kinopoisk : int
-	cover : HttpUrl
+	cover : HttpUrl = None
 	premiere_date : date
 	country : str
 	genres : str
 	popularity : int
 	age: int
 	producer: str
+	webtorrent: str
 
 class SimpleMovie (BaseModel):
 	title : str

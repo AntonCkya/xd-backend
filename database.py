@@ -103,7 +103,7 @@ class MovieDB:
 		self.cur.execute("""
 					CREATE TABLE IF NOT EXISTS movie
 					(
-					title TEXT,
+					title TEXT UNIQUE,
 					description TEXT,
 					id_kinopoisk INT PRIMARY KEY,
 					cover TEXT,
@@ -112,7 +112,8 @@ class MovieDB:
 					genres TEXT,
 					popularity INT,
 					age INT,
-					producer TEXT
+					producer TEXT,
+					webtorrent TEXT
 					);
 					""")
 		self.conn.commit()
@@ -120,7 +121,7 @@ class MovieDB:
 	def post_movie(self, movie: Movie):
 		self.cur.execute("""
 					INSERT INTO movie
-   					VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+   					VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
    					""", [
    						movie.title,
    						movie.description,
@@ -131,7 +132,8 @@ class MovieDB:
    						movie.genres,
    						movie.popularity,
    						movie.age,
-   						movie.producer
+   						movie.producer,
+   						movie.webtorrent
    					])
 		self.conn.commit()
 
@@ -165,6 +167,7 @@ class MovieDB:
 					popularity = ?,
 					age = ?,
 					producer = ?
+					webtorrent = ?
 					WHERE id_kinopoisk = ?;
 					""", [
    						new_movie.title,
@@ -176,6 +179,7 @@ class MovieDB:
    						new_movie.popularity,
    						new_movie.age,
    						new_movie.producer,
+   						new_movie.webtorrent,
    						id_prev
    					])
 		self.conn.commit()
@@ -222,4 +226,31 @@ class MovieDB:
 					FROM movie;
 					""")
 		res = self.cur.fetchmany(count)
+		return res
+
+	def get_movie_title (self, id: int):
+		self.cur.execute("""
+					SELECT title 
+					FROM movie
+					WHERE id_kinopoisk = ?;
+					""", (id,))
+		res = self.cur.fetchone()
+		return res
+
+	def get_movie_webtorrent (self, id: int):
+		self.cur.execute("""
+					SELECT webtorrent 
+					FROM movie
+					WHERE id_kinopoisk = ?;
+					""", (id,))
+		res = self.cur.fetchone()
+		return res
+
+	def get_movie_by_title (self, title: str):
+		self.cur.execute("""
+					SELECT * 
+					FROM movie
+					WHERE trim(title) LIKE ?;
+					""", (title,))
+		res = self.cur.fetchone()
 		return res

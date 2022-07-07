@@ -29,7 +29,8 @@ async def get_movie(id: int):
 		'genres': res[6],
 		'popularity': res[7],
 		'age': res[8],
-		'producer': res[9]
+		'producer': res[9],
+		'webtorrent': res[10]
 	}
 
 @app.delete('/delete_movie/')
@@ -53,7 +54,8 @@ async def get_movie_popular(count: int):
 			'genres': res[6],
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9]
+			'producer': res[9],
+			'webtorrent': res[10]
 			}
 		)
 	return {"list": l}
@@ -74,7 +76,8 @@ async def get_movie_novelty(count: int):
 			'genres': res[6],
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9]
+			'producer': res[9],
+			'webtorrent': res[10]
 			}
 		)
 	return {"list": l}
@@ -95,15 +98,44 @@ async def get_movie_many(count: int):
 			'genres': res[6],
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9]
+			'producer': res[9],
+			'webtorrent': res[10]
 			}
 		)
 	return {"list": l}
 
-@app.post('/update_popularity/')
+@app.put('/update_popularity/')
 async def update_popularity(id: int, pop: int):
 	mdb.update_popularity(id, pop)
 	return {"message": "success"}
+
+@app.get('/get_movie_title/')
+async def get_movie_title(id: int):
+	res = mdb.get_movie_title(id)
+	return {"title": res[0]}
+
+@app.get('/get_movie_webtorrent/')
+async def get_movie_webtorrent(id: int):
+	res = mdb.get_movie_webtorrent(id)
+	return {"webtorrent": res[0]}
+
+@app.get('/get_movie_by_title/')
+async def get_movie_by_title(title: str):
+	res = mdb.get_movie_by_title(title)
+	print(res)
+	return {
+		'title': res[0],
+		'description': res[1],
+		'id_kinopoisk': res[2],
+		'cover': res[3],
+		'premiere_date': res[4],
+		'country': res[5],
+		'genres': res[6],
+		'popularity': res[7],
+		'age': res[8],
+		'producer': res[9],
+		'webtorrent': res[10]
+	}
 
 
 def custom_openapi():
