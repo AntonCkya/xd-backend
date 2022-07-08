@@ -252,5 +252,5 @@ class MovieDB:
 					FROM movie
 					WHERE trim(title) LIKE ?;
 					""", (title,))
-		res = self.cur.fetchone()
+		res = self.cur.fetchall()
 		return res
