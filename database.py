@@ -250,7 +250,7 @@ class MovieDB:
 		self.cur.execute("""
 					SELECT * 
 					FROM movie
-					WHERE instr(trim(title), ?) <> 0;
+					WHERE instr(LOWER(trim(title)), LOWER(?)) <> 0;
 					""", (title,))
 		res = self.cur.fetchall()
 		return res
