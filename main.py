@@ -13,6 +13,8 @@ origins = [
     "https://localhost",
     "http://localhost:8000",
     "https://localhost:8000",
+    "http://localhost:3000",
+    "https://localhost:3000",
 ]
 
 app.add_middleware(
@@ -41,11 +43,11 @@ async def get_movie(id: int):
 		'id_kinopoisk': res[2],
 		'cover': res[3],
 		'premiere_date': res[4],
-		'country': res[5],
-		'genres': res[6],
+		'country': res[5].split(', '),
+		'genres': res[6].split(', '),
 		'popularity': res[7],
 		'age': res[8],
-		'producer': res[9],
+		'producer': res[9].split(', '),
 		'webtorrent': res[10]
 	}
 
@@ -66,11 +68,11 @@ async def get_movie_popular(count: int):
 			'id_kinopoisk': res[2],
 			'cover': res[3],
 			'premiere_date': res[4],
-			'country': res[5],
-			'genres': res[6],
+			'country': res[5].split(', '),
+			'genres': res[6].split(', '),
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9],
+			'producer': res[9].split(', '),
 			'webtorrent': res[10]
 			}
 		)
@@ -88,11 +90,11 @@ async def get_movie_novelty(count: int):
 			'id_kinopoisk': res[2],
 			'cover': res[3],
 			'premiere_date': res[4],
-			'country': res[5],
-			'genres': res[6],
+			'country': res[5].split(', '),
+			'genres': res[6].split(', '),
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9],
+			'producer': res[9].split(', '),
 			'webtorrent': res[10]
 			}
 		)
@@ -110,11 +112,11 @@ async def get_movie_many(count: int):
 			'id_kinopoisk': res[2],
 			'cover': res[3],
 			'premiere_date': res[4],
-			'country': res[5],
-			'genres': res[6],
+			'country': res[5].split(', '),
+			'genres': res[6].split(', '),
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9],
+			'producer': res[9].split(', '),
 			'webtorrent': res[10]
 			}
 		)
@@ -147,11 +149,11 @@ async def get_movie_by_title(title: str):
 			'id_kinopoisk': res[2],
 			'cover': res[3],
 			'premiere_date': res[4],
-			'country': res[5],
-			'genres': res[6],
+			'country': res[5].split(', '),
+			'genres': res[6].split(', '),
 			'popularity': res[7],
 			'age': res[8],
-			'producer': res[9],
+			'producer': res[9].split(', '),
 			'webtorrent': res[10]
 			}
 		)
